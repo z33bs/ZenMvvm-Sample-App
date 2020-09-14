@@ -3,6 +3,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using TestMyMvvm.Services;
 using TestMyMvvm.Views;
+using XamarinFormsMvvmAdaptor;
 
 namespace TestMyMvvm
 {
@@ -14,6 +15,7 @@ namespace TestMyMvvm
             InitializeComponent();
 
             DependencyService.Register<MockDataStore>();
+            ViewModelLocator.Ioc.Register<NavigationService>().As<INavigationService>();
             MainPage = new AppShell();
         }
 

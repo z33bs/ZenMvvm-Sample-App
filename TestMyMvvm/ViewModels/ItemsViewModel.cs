@@ -8,16 +8,21 @@ using Xamarin.Forms;
 using TestMyMvvm.Models;
 using TestMyMvvm.Views;
 using XamarinFormsMvvmAdaptor;
+using System.Windows.Input;
+using XamarinFormsMvvmAdaptor.Helpers;
 
 namespace TestMyMvvm.ViewModels
 {
     public class ItemsViewModel : BaseViewModel, IOnViewAppearing
     {
+        readonly INavigationService navigationService;
+
         public ObservableCollection<Item> Items { get; set; }
         public Command LoadItemsCommand { get; set; }
 
-        public ItemsViewModel()
+        public ItemsViewModel(INavigationService navigationService)
         {
+            this.navigationService = navigationService;
             Title = "Browse";
             Items = new ObservableCollection<Item>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
@@ -51,6 +56,14 @@ namespace TestMyMvvm.ViewModels
             {
                 IsBusy = false;
             }
+        }
+
+        ICommand addItemCommand;
+        public ICommand AddItemCommand => addItemCommand ??= new SafeCommand(AddItemAsync);
+        async Task AddItemAsync()
+        {
+            //todo PushModalAsync gives option to wrap in NavigationPage
+            await navigationService.PushAsync<NewItemViewModel>();
         }
 
         public void OnViewAppearing(object sender, EventArgs e)
