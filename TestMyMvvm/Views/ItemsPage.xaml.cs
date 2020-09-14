@@ -18,13 +18,13 @@ namespace TestMyMvvm.Views
     [DesignTimeVisible(false)]
     public partial class ItemsPage : ContentPage
     {
-        ItemsViewModel viewModel;
+        //ItemsViewModel viewModel;
 
         public ItemsPage()
         {
             InitializeComponent();
 
-            BindingContext = viewModel = new ItemsViewModel();
+            //BindingContext = viewModel = new ItemsViewModel();
         }
 
         async void OnItemSelected(object sender, EventArgs args)
@@ -43,8 +43,8 @@ namespace TestMyMvvm.Views
         {
             base.OnAppearing();
 
-            if (viewModel.Items.Count == 0)
-                viewModel.IsBusy = true;
+            //if (viewModel.Items.Count == 0)
+            //    viewModel.IsBusy = true;
         }
     }
 }
