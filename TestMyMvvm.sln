@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestMyMvvm.iOS", "TestMyMvv
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestMyMvvm", "TestMyMvvm\TestMyMvvm.csproj", "{BD1A5971-ABBA-46F0-B504-F76E1F5AAB9A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamarinFormsMvvmAdaptor", "..\XamarinFormsMvvmAdaptor\XamarinFormsMvvmAdaptor\XamarinFormsMvvmAdaptor.csproj", "{9A883149-3A97-49F3-B2CD-81254B337165}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,5 +55,17 @@ Global
 		{BD1A5971-ABBA-46F0-B504-F76E1F5AAB9A}.Debug|iPhone.Build.0 = Debug|Any CPU
 		{BD1A5971-ABBA-46F0-B504-F76E1F5AAB9A}.Release|iPhone.ActiveCfg = Release|Any CPU
 		{BD1A5971-ABBA-46F0-B504-F76E1F5AAB9A}.Release|iPhone.Build.0 = Release|Any CPU
+		{9A883149-3A97-49F3-B2CD-81254B337165}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A883149-3A97-49F3-B2CD-81254B337165}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A883149-3A97-49F3-B2CD-81254B337165}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A883149-3A97-49F3-B2CD-81254B337165}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A883149-3A97-49F3-B2CD-81254B337165}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{9A883149-3A97-49F3-B2CD-81254B337165}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{9A883149-3A97-49F3-B2CD-81254B337165}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{9A883149-3A97-49F3-B2CD-81254B337165}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{9A883149-3A97-49F3-B2CD-81254B337165}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{9A883149-3A97-49F3-B2CD-81254B337165}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{9A883149-3A97-49F3-B2CD-81254B337165}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{9A883149-3A97-49F3-B2CD-81254B337165}.Release|iPhone.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

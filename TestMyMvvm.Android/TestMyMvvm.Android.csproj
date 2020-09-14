@@ -92,6 +92,10 @@
       <Project>{BD1A5971-ABBA-46F0-B504-F76E1F5AAB9A}</Project>
       <Name>TestMyMvvm</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\XamarinFormsMvvmAdaptor\XamarinFormsMvvmAdaptor\XamarinFormsMvvmAdaptor.csproj">
+      <Project>{9A883149-3A97-49F3-B2CD-81254B337165}</Project>
+      <Name>XamarinFormsMvvmAdaptor</Name>
+    </ProjectReference>
   </ItemGroup>
  <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>
