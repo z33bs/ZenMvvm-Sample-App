@@ -38,13 +38,5 @@ namespace TestMyMvvm.Views
         {
             await Navigation.PushModalAsync(new NavigationPage(new NewItemPage()));
         }
-
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-
-            //if (viewModel.Items.Count == 0)
-            //    viewModel.IsBusy = true;
-        }
     }
 }

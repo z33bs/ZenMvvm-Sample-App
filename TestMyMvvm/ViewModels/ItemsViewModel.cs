@@ -7,10 +7,11 @@ using Xamarin.Forms;
 
 using TestMyMvvm.Models;
 using TestMyMvvm.Views;
+using XamarinFormsMvvmAdaptor;
 
 namespace TestMyMvvm.ViewModels
 {
-    public class ItemsViewModel : BaseViewModel
+    public class ItemsViewModel : BaseViewModel, IOnViewAppearing
     {
         public ObservableCollection<Item> Items { get; set; }
         public Command LoadItemsCommand { get; set; }
@@ -50,6 +51,12 @@ namespace TestMyMvvm.ViewModels
             {
                 IsBusy = false;
             }
+        }
+
+        public void OnViewAppearing(object sender, EventArgs e)
+        {
+            if (Items.Count == 0)
+                IsBusy = true;
         }
     }
 }
