@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using System.Windows.Input;
 using TestMyMvvm.Models;
-using Xamarin.Forms;
+//using Xamarin.Forms;
 using XamarinFormsMvvmAdaptor;
 using XamarinFormsMvvmAdaptor.Helpers;
 
@@ -30,7 +30,7 @@ namespace TestMyMvvm.ViewModels
         public ICommand SaveCommand => saveCommand ??= new SafeCommand(SaveAsync);
         async Task SaveAsync()
         {
-            MessagingCenter.Send(this, "AddItem", Item);
+            SafeMessagingCenter.Send(this, "AddItem", Item);
             await navigationService.PopAsync();
         }
 

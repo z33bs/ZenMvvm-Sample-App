@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
-using Xamarin.Forms;
+//using Xamarin.Forms;
 
 using TestMyMvvm.Models;
 using TestMyMvvm.Views;
@@ -20,7 +20,7 @@ namespace TestMyMvvm.ViewModels
         readonly IDataStore<Item> dataStore;
 
         public ObservableCollection<Item> Items { get; set; }
-        public Command LoadItemsCommand { get; set; }
+        public SafeCommand LoadItemsCommand { get; set; }
 
         public ItemsViewModel(INavigationService navigationService, IDataStore<Item> dataStore)
         {
@@ -28,9 +28,9 @@ namespace TestMyMvvm.ViewModels
             this.dataStore = dataStore;
             Title = "Browse";
             Items = new ObservableCollection<Item>();
-            LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
+            LoadItemsCommand = new SafeCommand(async () => await ExecuteLoadItemsCommand());
 
-            MessagingCenter.Subscribe<NewItemViewModel, Item>(this, "AddItem", async (obj, item) =>
+            SafeMessagingCenter.Subscribe<NewItemViewModel, Item>(this, "AddItem", async (obj, item) =>
             {
                 var newItem = item as Item;
                 Items.Add(newItem);
