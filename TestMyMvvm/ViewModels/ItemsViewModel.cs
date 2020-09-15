@@ -66,6 +66,13 @@ namespace TestMyMvvm.ViewModels
             await navigationService.PushAsync<NewItemViewModel>();
         }
 
+        ICommand onItemSelectedCommand;
+        public ICommand OnItemSelectedCommand => onItemSelectedCommand ??= new SafeCommand<Item>(OnItemSelectedAsync);
+        async Task OnItemSelectedAsync(Item item)
+        {
+            await navigationService.PushAsync<ItemDetailViewModel>(item);
+        }
+
         public void OnViewAppearing(object sender, EventArgs e)
         {
             if (Items.Count == 0)
