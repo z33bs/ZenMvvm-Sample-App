@@ -10,19 +10,22 @@ using TestMyMvvm.Views;
 using XamarinFormsMvvmAdaptor;
 using System.Windows.Input;
 using XamarinFormsMvvmAdaptor.Helpers;
+using TestMyMvvm.Services;
 
 namespace TestMyMvvm.ViewModels
 {
-    public class ItemsViewModel : BaseViewModel, IOnViewAppearing
+    public class ItemsViewModel : ViewModelBase, IOnViewAppearing
     {
         readonly INavigationService navigationService;
+        readonly IDataStore<Item> dataStore;
 
         public ObservableCollection<Item> Items { get; set; }
         public Command LoadItemsCommand { get; set; }
 
-        public ItemsViewModel(INavigationService navigationService)
+        public ItemsViewModel(INavigationService navigationService, IDataStore<Item> dataStore)
         {
             this.navigationService = navigationService;
+            this.dataStore = dataStore;
             Title = "Browse";
             Items = new ObservableCollection<Item>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
@@ -31,7 +34,7 @@ namespace TestMyMvvm.ViewModels
             {
                 var newItem = item as Item;
                 Items.Add(newItem);
-                await DataStore.AddItemAsync(newItem);
+                await dataStore.AddItemAsync(newItem);
             });
         }
 
@@ -42,7 +45,7 @@ namespace TestMyMvvm.ViewModels
             try
             {
                 Items.Clear();
-                var items = await DataStore.GetItemsAsync(true);
+                var items = await dataStore.GetItemsAsync(true);
                 foreach (var item in items)
                 {
                     Items.Add(item);

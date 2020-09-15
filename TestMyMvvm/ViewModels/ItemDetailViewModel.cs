@@ -2,10 +2,11 @@
 using System.Threading.Tasks;
 using TestMyMvvm.Models;
 using XamarinFormsMvvmAdaptor;
+using XamarinFormsMvvmAdaptor.Helpers;
 
 namespace TestMyMvvm.ViewModels
 {
-    public class ItemDetailViewModel : BaseViewModel, IOnViewNavigated
+    public class ItemDetailViewModel : ViewModelBase, IOnViewNavigated
     {
         Item item;
         public Item Item

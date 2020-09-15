@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Windows.Input;
 using Xamarin.Essentials;
-using Xamarin.Forms;
-
+//using Xamarin.Forms;
+using XamarinFormsMvvmAdaptor.Helpers;
 namespace TestMyMvvm.ViewModels
 {
-    public class AboutViewModel : BaseViewModel
+    public class AboutViewModel : ViewModelBase
     {
         public AboutViewModel()
         {
             Title = "About";
-            OpenWebCommand = new Command(async () => await Browser.OpenAsync("https://xamarin.com"));
+            OpenWebCommand = new SafeCommand(async () => await Browser.OpenAsync("https://xamarin.com"),mustRunOnCurrentSyncContext:true);
         }
 
         public ICommand OpenWebCommand { get; }
