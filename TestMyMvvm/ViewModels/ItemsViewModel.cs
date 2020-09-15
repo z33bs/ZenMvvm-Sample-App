@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Threading.Tasks;
-
-//using Xamarin.Forms;
-
 using TestMyMvvm.Models;
-using TestMyMvvm.Views;
 using XamarinFormsMvvmAdaptor;
 using System.Windows.Input;
 using XamarinFormsMvvmAdaptor.Helpers;
@@ -49,7 +44,8 @@ namespace TestMyMvvm.ViewModels
         }
 
         ICommand addItemCommand;
-        public ICommand AddItemCommand => addItemCommand ??= new SafeCommand(AddItemAsync);
+        public ICommand AddItemCommand
+            => addItemCommand ??= new SafeCommand(AddItemAsync);
         async Task AddItemAsync()
         {
             //todo PushModalAsync gives option to wrap in NavigationPage
@@ -57,7 +53,8 @@ namespace TestMyMvvm.ViewModels
         }
 
         ICommand onItemSelectedCommand;
-        public ICommand OnItemSelectedCommand => onItemSelectedCommand ??= new SafeCommand<Item>(OnItemSelectedAsync);
+        public ICommand OnItemSelectedCommand
+            => onItemSelectedCommand ??= new SafeCommand<Item>(OnItemSelectedAsync);
         async Task OnItemSelectedAsync(Item item)
         {
             await navigationService.PushAsync<ItemDetailViewModel>(item);

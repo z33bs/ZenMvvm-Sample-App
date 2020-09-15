@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-using Xamarin.Forms;
-
-namespace TestMyMvvm
+﻿namespace TestMyMvvm
 {
     public partial class AppShell : Xamarin.Forms.Shell
     {

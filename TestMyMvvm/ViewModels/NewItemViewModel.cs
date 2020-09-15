@@ -1,8 +1,6 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Windows.Input;
 using TestMyMvvm.Models;
-//using Xamarin.Forms;
 using XamarinFormsMvvmAdaptor;
 using XamarinFormsMvvmAdaptor.Helpers;
 

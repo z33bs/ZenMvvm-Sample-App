@@ -1,8 +1,7 @@
-﻿using System;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using Xamarin.Essentials;
-//using Xamarin.Forms;
 using XamarinFormsMvvmAdaptor.Helpers;
+
 namespace TestMyMvvm.ViewModels
 {
     public class AboutViewModel : ViewModelBase
