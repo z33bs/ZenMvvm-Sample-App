@@ -20,7 +20,7 @@ namespace TestMyMvvm.ViewModels
         readonly IDataStore<Item> dataStore;
 
         public ObservableCollection<Item> Items { get; set; }
-        public SafeCommand LoadItemsCommand { get; set; }
+        public ICommand LoadItemsCommand { get; set; }
 
         public ItemsViewModel(INavigationService navigationService, IDataStore<Item> dataStore)
         {
@@ -28,7 +28,7 @@ namespace TestMyMvvm.ViewModels
             this.dataStore = dataStore;
             Title = "Browse";
             Items = new ObservableCollection<Item>();
-            LoadItemsCommand = new SafeCommand(async () => await ExecuteLoadItemsCommand());
+            LoadItemsCommand = new SafeCommand(ExecuteLoadItemsCommand, this); //todo Note to use OneWay in RefreshView
 
             SafeMessagingCenter.Subscribe<NewItemViewModel, Item>(this, "AddItem", async (obj, item) =>
             {
@@ -40,24 +40,11 @@ namespace TestMyMvvm.ViewModels
 
         async Task ExecuteLoadItemsCommand()
         {
-            IsBusy = true;
-
-            try
+            Items.Clear();
+            var items = await dataStore.GetItemsAsync(true);
+            foreach (var item in items)
             {
-                Items.Clear();
-                var items = await dataStore.GetItemsAsync(true);
-                foreach (var item in items)
-                {
-                    Items.Add(item);
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex);
-            }
-            finally
-            {
-                IsBusy = false;
+                Items.Add(item);
             }
         }
 
@@ -79,7 +66,7 @@ namespace TestMyMvvm.ViewModels
         public void OnViewAppearing(object sender, EventArgs e)
         {
             if (Items.Count == 0)
-                IsBusy = true;
+                LoadItemsCommand.Execute(null);
         }
     }
 }

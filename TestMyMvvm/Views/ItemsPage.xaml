@@ -7,7 +7,7 @@
         <ToolbarItem Text="Add" Command="{Binding AddItemCommand}" />
     </ContentPage.ToolbarItems>
     <StackLayout>
-        <RefreshView IsRefreshing="{Binding IsBusy, Mode=TwoWay}" Command="{Binding LoadItemsCommand}">
+        <RefreshView IsRefreshing="{Binding IsBusy, Mode=OneWay}" Command="{Binding LoadItemsCommand}">
             <CollectionView x:Name="ItemsCollectionView" ItemsSource="{Binding Items}">
                 <d:CollectionView.ItemsSource>
                     <x:Array Type="{x:Type x:String}">
