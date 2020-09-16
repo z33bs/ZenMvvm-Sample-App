@@ -48,7 +48,6 @@ namespace TestMyMvvm.ViewModels
             => addItemCommand ??= new SafeCommand(AddItemAsync);
         async Task AddItemAsync()
         {
-            //todo PushModalAsync gives option to wrap in NavigationPage
             await navigationService.PushAsync<NewItemViewModel>();
         }
 
