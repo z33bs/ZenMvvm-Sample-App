@@ -34,8 +34,6 @@ namespace TestMyMvvm
                 });
 
 
-            //Using the built-in container with Smart Resolve
-            DiContainer.Register<IDataStore<Item>, MockDataStore>();
 
             //Uncomment code below to try external 3rd party containers
             //UseLightInject();
