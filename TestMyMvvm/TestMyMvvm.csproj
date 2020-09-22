@@ -18,6 +18,6 @@
     <PackageReference Include="LightInject" Version="6.3.4" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\XamarinFormsMvvmAdaptor\XamarinFormsMvvmAdaptor\XamarinFormsMvvmAdaptor.csproj" />
+    <ProjectReference Include="..\..\ZenMvvm\src\ZenMvvm\ZenMvvm.csproj" />
   </ItemGroup>
 </Project>

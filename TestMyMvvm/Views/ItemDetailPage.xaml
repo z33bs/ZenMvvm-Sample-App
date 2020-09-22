@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="TestMyMvvm.Views.ItemDetailPage"
 
-    xmlns:mvvm="clr-namespace:XamarinFormsMvvmAdaptor;assembly=XamarinFormsMvvmAdaptor"
+    xmlns:mvvm="clr-namespace:ZenMvvm;assembly=ZenMvvm"
     mvvm:ViewModelLocator.AutoWireViewModel="True"
     Title="{Binding Title}">
 

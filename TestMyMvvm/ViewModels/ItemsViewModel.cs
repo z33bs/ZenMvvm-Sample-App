@@ -2,9 +2,9 @@
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using TestMyMvvm.Models;
-using XamarinFormsMvvmAdaptor;
+using ZenMvvm;
 using System.Windows.Input;
-using XamarinFormsMvvmAdaptor.Helpers;
+using ZenMvvm.Helpers;
 using TestMyMvvm.Services;
 
 namespace TestMyMvvm.ViewModels

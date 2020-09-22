@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using TestMyMvvm.Models;
-using XamarinFormsMvvmAdaptor;
-using XamarinFormsMvvmAdaptor.Helpers;
+using ZenMvvm;
+using ZenMvvm.Helpers;
 
 namespace TestMyMvvm.ViewModels
 {
