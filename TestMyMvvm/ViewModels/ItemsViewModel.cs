@@ -6,24 +6,25 @@ using ZenMvvm;
 using System.Windows.Input;
 using ZenMvvm.Helpers;
 using TestMyMvvm.Services;
+using System.Diagnostics;
+using Xamarin.Forms;
 
 namespace TestMyMvvm.ViewModels
 {
     public class ItemsViewModel : ViewModelBase, IOnViewAppearing
     {
         readonly INavigationService navigationService;
-        readonly IDataStore<Item> dataStore;
 
-        public ObservableCollection<Item> Items { get; set; }
+        public ObservableRangeCollection<Item> Items { get; } = new ObservableRangeCollection<Item>();
         public ICommand LoadItemsCommand { get; set; }
 
         public ItemsViewModel(INavigationService navigationService, IDataStore<Item> dataStore)
         {
             this.navigationService = navigationService;
-            this.dataStore = dataStore;
             Title = "Browse";
-            Items = new ObservableCollection<Item>();
-            LoadItemsCommand = new SafeCommand(ExecuteLoadItemsCommand, this); //todo Note to use OneWay in RefreshView
+            LoadItemsCommand = new SafeCommand(
+                async () => Items.ReplaceRange(await dataStore.GetItemsAsync(true))
+                    , this); //todo Note to use OneWay in RefreshView
 
             SafeMessagingCenter.Subscribe<NewItemViewModel, Item>(this, "AddItem", async (obj, item) =>
             {
@@ -31,16 +32,6 @@ namespace TestMyMvvm.ViewModels
                 Items.Add(newItem);
                 await dataStore.AddItemAsync(newItem);
             });
-        }
-
-        async Task ExecuteLoadItemsCommand()
-        {
-            Items.Clear();
-            var items = await dataStore.GetItemsAsync(true);
-            foreach (var item in items)
-            {
-                Items.Add(item);
-            }
         }
 
         ICommand addItemCommand;
