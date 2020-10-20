@@ -49,12 +49,14 @@ namespace TestMyMvvm.Services
 
         public async Task<Item> GetItemAsync(string id)
         {
+            await Task.Delay(500);
             return await Task.FromResult(items.FirstOrDefault(s => s.Id == id));
         }
 
         public async Task<IEnumerable<Item>> GetItemsAsync(bool forceRefresh = false)
         {
-            return await Task.FromResult(items);
+            await Task.Delay(500).ConfigureAwait(false);
+            return await Task.FromResult(items).ConfigureAwait(false);
         }
     }
 }
