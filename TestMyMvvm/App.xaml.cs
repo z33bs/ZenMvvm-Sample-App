@@ -1,10 +1,6 @@
 using System;
 using Xamarin.Forms;
-using TestMyMvvm.Services;
-using ZenMvvm;
-using TestMyMvvm.Models;
 using ZenMvvm.Helpers;
-using TestMyMvvm.ViewModels;
 
 namespace TestMyMvvm
 {
