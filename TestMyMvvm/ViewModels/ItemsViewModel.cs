@@ -18,7 +18,7 @@ namespace TestMyMvvm.ViewModels
         public ObservableRangeCollection<Item> Items { get; } = new ObservableRangeCollection<Item>();
         public ICommand LoadItemsCommand { get; set; }
 
-        public ItemsViewModel(INavigationService navigationService, IDataStore<Item> dataStore)
+        public ItemsViewModel(INavigationService navigationService, IDataStore<Item> dataStore, ISafeMessagingCenter messagingCenter)
         {
             this.navigationService = navigationService;
             Title = "Browse";
@@ -26,7 +26,7 @@ namespace TestMyMvvm.ViewModels
                 async () => Items.ReplaceRange(await dataStore.GetItemsAsync(true))
                     , this); //todo Note to use OneWay in RefreshView
 
-            SafeMessagingCenter.Subscribe<NewItemViewModel, Item>(this, "AddItem", async (obj, item) =>
+            messagingCenter.Subscribe<NewItemViewModel, Item>(this, "AddItem", async (obj, item) =>
             {
                 var newItem = item as Item;
                 Items.Add(newItem);

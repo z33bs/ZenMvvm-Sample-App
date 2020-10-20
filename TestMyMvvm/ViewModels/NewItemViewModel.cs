@@ -9,10 +9,12 @@ namespace TestMyMvvm.ViewModels
     public class NewItemViewModel
     {
         public readonly INavigationService navigationService;
+        public readonly ISafeMessagingCenter messagingCenter;
 
-        public NewItemViewModel(INavigationService navigationService)
+        public NewItemViewModel(INavigationService navigationService, ISafeMessagingCenter messagingCenter)
         {
             this.navigationService = navigationService;
+            this.messagingCenter = messagingCenter;
 
             Item = new Item
             {
@@ -28,7 +30,7 @@ namespace TestMyMvvm.ViewModels
         public ICommand SaveCommand => saveCommand ??= new SafeCommand(SaveAsync);
         async Task SaveAsync()
         {
-            SafeMessagingCenter.Send(this, "AddItem", Item);
+            messagingCenter.Send(this, "AddItem", Item);
             await navigationService.PopAsync();
         }
 
