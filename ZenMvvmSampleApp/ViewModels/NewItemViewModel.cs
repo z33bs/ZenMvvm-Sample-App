@@ -36,10 +36,7 @@ namespace ZenMvvmSampleApp.ViewModels
 
         ICommand cancelCommand;
         public ICommand CancelCommand => cancelCommand ??= new SafeCommand(CancelAsync);
-        async void CancelAsync()
-        {
-            await navigationService.PopAsync();
-        }
-
+        async void CancelAsync() =>
+            await navigationService.PopAsync();       
     }
 }

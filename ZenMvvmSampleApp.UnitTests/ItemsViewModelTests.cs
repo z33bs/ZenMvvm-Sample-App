@@ -109,7 +109,7 @@ namespace ZenMvvmSampleApp.UnitTests
         {
             var mockNavigation = new Mock<INavigationService>();
             mockNavigation.Setup(
-                o => o.PushAsync<ItemDetailViewModel>(item, true)).Verifiable();
+                o => o.PushAsync<ItemDetailViewModel, Item>(item, true)).Verifiable();
 
             var vm = new ItemsViewModel(
                 mockNavigation.Object,

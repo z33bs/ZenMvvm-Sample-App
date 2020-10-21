@@ -5,7 +5,7 @@ using ZenMvvm.Helpers;
 
 namespace ZenMvvmSampleApp.ViewModels
 {
-    public class ItemDetailViewModel : ViewModelBase, IOnViewNavigated
+    public class ItemDetailViewModel : ViewModelBase, IOnViewNavigated<Item>
     {
         Item item;
         public Item Item
@@ -14,9 +14,8 @@ namespace ZenMvvmSampleApp.ViewModels
             set => SetProperty(ref item, value);
         }
 
-        public Task OnViewNavigatedAsync(object navigationData)
+        public Task OnViewNavigatedAsync(Item item)
         {
-            var item = navigationData as Item;
             Title = item?.Text;
             Item = item;
 

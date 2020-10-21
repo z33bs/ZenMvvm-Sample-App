@@ -44,7 +44,7 @@ namespace ZenMvvmSampleApp.ViewModels
         public ICommand OnItemSelectedCommand
             => onItemSelectedCommand ??= new SafeCommand<Item>(OnItemSelectedAsync);
         async Task OnItemSelectedAsync(Item item) =>
-            await navigationService.PushAsync<ItemDetailViewModel>(item);
+            await navigationService.PushAsync<ItemDetailViewModel, Item>(item);
 
         public void OnViewAppearing(object sender, EventArgs e)
         {
