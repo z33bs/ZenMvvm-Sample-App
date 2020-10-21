@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZenMvvm", "..\ZenMvvm\src\Z
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZenMvvmSampleApp", "ZenMvvmSampleApp\ZenMvvmSampleApp.csproj", "{42FCD560-8CA8-465D-ACDB-9E0E0858753F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZenMvvmSampleApp.UnitTests", "ZenMvvmSampleApp.UnitTests\ZenMvvmSampleApp.UnitTests.csproj", "{BD22C70D-D939-45E5-9E78-BCB86D1628CE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -79,5 +81,17 @@ Global
 		{42FCD560-8CA8-465D-ACDB-9E0E0858753F}.Debug|iPhone.Build.0 = Debug|Any CPU
 		{42FCD560-8CA8-465D-ACDB-9E0E0858753F}.Release|iPhone.ActiveCfg = Release|Any CPU
 		{42FCD560-8CA8-465D-ACDB-9E0E0858753F}.Release|iPhone.Build.0 = Release|Any CPU
+		{BD22C70D-D939-45E5-9E78-BCB86D1628CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD22C70D-D939-45E5-9E78-BCB86D1628CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD22C70D-D939-45E5-9E78-BCB86D1628CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD22C70D-D939-45E5-9E78-BCB86D1628CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD22C70D-D939-45E5-9E78-BCB86D1628CE}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{BD22C70D-D939-45E5-9E78-BCB86D1628CE}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{BD22C70D-D939-45E5-9E78-BCB86D1628CE}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{BD22C70D-D939-45E5-9E78-BCB86D1628CE}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{BD22C70D-D939-45E5-9E78-BCB86D1628CE}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{BD22C70D-D939-45E5-9E78-BCB86D1628CE}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{BD22C70D-D939-45E5-9E78-BCB86D1628CE}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{BD22C70D-D939-45E5-9E78-BCB86D1628CE}.Release|iPhone.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
