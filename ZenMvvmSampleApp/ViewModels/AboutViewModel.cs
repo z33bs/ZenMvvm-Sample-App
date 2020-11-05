@@ -9,9 +9,9 @@ namespace ZenMvvmSampleApp.ViewModels
         public AboutViewModel()
         {
             Title = "About";
-            OpenWebCommand = new SafeCommand(async () => await Browser.OpenAsync("https://xamarin.com"),mustRunOnCurrentSyncContext:true);
         }
 
-        public ICommand OpenWebCommand { get; }
+        public ICommand TapCommand
+            => new SafeCommand<string>(Launcher.OpenAsync, mustRunOnCurrentSyncContext: true);
     }
 }
