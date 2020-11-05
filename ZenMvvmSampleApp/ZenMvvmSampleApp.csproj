@@ -16,8 +16,6 @@
     <PackageReference Include="Xamarin.Essentials" Version="1.3.1" />
     <PackageReference Include="Autofac" Version="5.2.0" />
     <PackageReference Include="LightInject" Version="6.3.4" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\ZenMvvm\src\ZenMvvm\ZenMvvm.csproj" />
+    <PackageReference Include="ZenMvvm" Version="20201105.1.0" />
   </ItemGroup>
 </Project>

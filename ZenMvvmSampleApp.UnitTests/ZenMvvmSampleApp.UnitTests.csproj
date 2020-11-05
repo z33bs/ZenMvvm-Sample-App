@@ -12,9 +12,9 @@
     </PackageReference>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
     <PackageReference Include="Moq" Version="4.14.7" />
+    <PackageReference Include="ZenMvvm" Version="20201105.1.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\ZenMvvm\src\ZenMvvm\ZenMvvm.csproj" />
     <ProjectReference Include="..\ZenMvvmSampleApp\ZenMvvmSampleApp.csproj" />
   </ItemGroup>
 </Project>
