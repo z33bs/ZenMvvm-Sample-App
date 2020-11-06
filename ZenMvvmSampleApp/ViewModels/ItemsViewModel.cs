@@ -10,17 +10,22 @@ namespace ZenMvvmSampleApp.ViewModels
 {
     public class ItemsViewModel : ViewModelBase, IOnViewAppearing
     {
-        readonly INavigationService navigationService;
+        public ObservableRangeCollection<Item> Items { get; }
+            = new ObservableRangeCollection<Item>();
 
-        public ObservableRangeCollection<Item> Items { get; } = new ObservableRangeCollection<Item>();
+        public ICommand LoadItemsCommand { get; }
+        public ICommand AddItemCommand { get; }
+        public ICommand OnItemSelectedCommand { get; }
 
-        public ItemsViewModel(INavigationService navigationService, IDataStore<Item> dataStore, ISafeMessagingCenter messagingCenter)
+        public ItemsViewModel(
+            INavigationService navigationService,
+            IDataStore<Item> dataStore,
+            ISafeMessagingCenter messagingCenter)
         {
-            this.navigationService = navigationService;
-
             Title = "Browse";
 
-            messagingCenter.Subscribe<NewItemViewModel, Item>(this, "AddItem", async (obj, item) =>
+            messagingCenter.Subscribe<NewItemViewModel, Item>(
+                this, "AddItem", async (obj, item) =>
             {
                 var newItem = item;
                 Items.Add(newItem);
@@ -28,24 +33,21 @@ namespace ZenMvvmSampleApp.ViewModels
             });
 
             LoadItemsCommand = new SafeCommand(
-                async () => Items.ReplaceRange(await dataStore.GetItemsAsync(true))
+                LoadItemsAsync
                 , viewModel:this); //NB to use OneWay Binding in RefreshView
+            async Task LoadItemsAsync()
+                => Items.ReplaceRange(await dataStore.GetItemsAsync(true));
+
+            AddItemCommand = new SafeCommand(AddItemAsync);
+            async Task AddItemAsync() =>
+                await navigationService.PushAsync<NewItemViewModel>();
+
+            OnItemSelectedCommand = new SafeCommand<Item>(OnItemSelectedAsync);
+            async Task OnItemSelectedAsync(Item item) =>
+                await navigationService.PushAsync<ItemDetailViewModel, Item>(item);
+
         }
-
-        public ICommand LoadItemsCommand { get; } //set in ctor       
-
-        ICommand addItemCommand;
-        public ICommand AddItemCommand
-            => addItemCommand ??= new SafeCommand(AddItemAsync);
-        async Task AddItemAsync() =>
-            await navigationService.PushAsync<NewItemViewModel>();        
-
-        ICommand onItemSelectedCommand;
-        public ICommand OnItemSelectedCommand
-            => onItemSelectedCommand ??= new SafeCommand<Item>(OnItemSelectedAsync);
-        async Task OnItemSelectedAsync(Item item) =>
-            await navigationService.PushAsync<ItemDetailViewModel, Item>(item);
-
+        
         public void OnViewAppearing(object sender, EventArgs e)
         {
             if (Items.Count == 0)

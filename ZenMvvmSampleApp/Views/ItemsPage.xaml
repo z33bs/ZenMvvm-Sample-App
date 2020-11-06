@@ -6,25 +6,37 @@
 
     Title="{Binding Title}"
     xmlns:mvvm="clr-namespace:ZenMvvm;assembly=ZenMvvm"
-    mvvm:ViewModelLocator.AutoWireViewModel="True"
-    xmlns:vm="clr-namespace:ZenMvvmSampleApp.ViewModels">
+    mvvm:ViewModelLocator.AutoWireViewModel="True">
+    <!--ZM: ViewModel Binding is set with AutoWireViewModel="True" above-->
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add" Command="{Binding AddItemCommand}" />
+        <ToolbarItem Text="Add"
+                     Command="{Binding AddItemCommand}" />
     </ContentPage.ToolbarItems>
 
     <StackLayout>
-        <RefreshView IsRefreshing="{Binding IsBusy, Mode=OneWay}" Command="{Binding LoadItemsCommand}">
-            <CollectionView x:Name="ItemsCollectionView" ItemsSource="{Binding Items}">
+        <RefreshView IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                     Command="{Binding LoadItemsCommand}">
+            <CollectionView x:Name="ItemsCollectionView"
+                            ItemsSource="{Binding Items}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <StackLayout Padding="10" InputTransparent="False">
+                        <StackLayout Padding="10"
+                                     InputTransparent="False">
                             <StackLayout.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ItemsViewModel}}, Path=OnItemSelectedCommand}" CommandParameter="{Binding .}"/>
+                                <TapGestureRecognizer
+                                    Command="{Binding BindingContext.OnItemSelectedCommand,
+                                        Source={x:Reference Name=ItemsCollectionView}}"
+                                    CommandParameter="{Binding .}"/>
                             </StackLayout.GestureRecognizers>
-
-                            <Label Text="{Binding Text}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16"/>
-                            <Label Text="{Binding Description}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}" FontSize="13"/>
+                            <Label Text="{Binding Text}"
+                                   LineBreakMode="NoWrap"
+                                   Style="{DynamicResource ListItemTextStyle}"
+                                   FontSize="16"/>
+                            <Label Text="{Binding Description}"
+                                   LineBreakMode="NoWrap"
+                                   Style="{DynamicResource ListItemDetailTextStyle}"
+                                   FontSize="13"/>
                         </StackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

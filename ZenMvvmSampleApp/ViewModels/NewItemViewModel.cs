@@ -8,35 +8,31 @@ namespace ZenMvvmSampleApp.ViewModels
 {
     public class NewItemViewModel
     {
-        public readonly INavigationService navigationService;
-        public readonly ISafeMessagingCenter messagingCenter;
+        public Item Item { get; set; }
 
-        public NewItemViewModel(INavigationService navigationService, ISafeMessagingCenter messagingCenter)
+        public ICommand SaveCommand { get; }
+        public ICommand CancelCommand { get; }
+
+        public NewItemViewModel(
+            INavigationService navigationService,
+            ISafeMessagingCenter messagingCenter)
         {
-            this.navigationService = navigationService;
-            this.messagingCenter = messagingCenter;
-
             Item = new Item
             {
                 Text = "Item name",
                 Description = "This is an item description."
             };
 
+            SaveCommand = new SafeCommand(SaveAsync);
+            async Task SaveAsync()
+            {
+                messagingCenter.Send(this, "AddItem", Item);
+                await navigationService.PopAsync();
+            };
+
+            CancelCommand = new SafeCommand(CancelAsync);
+            async void CancelAsync() =>
+                await navigationService.PopAsync();
         }
-
-        public Item Item { get; set; }
-
-        ICommand saveCommand;
-        public ICommand SaveCommand => saveCommand ??= new SafeCommand(SaveAsync);
-        async Task SaveAsync()
-        {
-            messagingCenter.Send(this, "AddItem", Item);
-            await navigationService.PopAsync();
-        }
-
-        ICommand cancelCommand;
-        public ICommand CancelCommand => cancelCommand ??= new SafeCommand(CancelAsync);
-        async void CancelAsync() =>
-            await navigationService.PopAsync();       
     }
 }
