@@ -4,13 +4,15 @@ using ZenMvvm.Helpers;
 
 namespace ZenMvvmSampleApp.ViewModels
 {
-    public class AboutViewModel : ViewModelBase
+    //ZM: No need to extend ViewModelBase if unnecessary
+    public class AboutViewModel
     {
         public ICommand TapCommand { get; }
 
         public AboutViewModel()
         {
-            Title = "About";
+            //ZM: mustRunOnCurrentSyncContext forces the command to
+            // execute on the UI thread
             TapCommand = new SafeCommand<string>(
                 Launcher.OpenAsync,
                 mustRunOnCurrentSyncContext: true);

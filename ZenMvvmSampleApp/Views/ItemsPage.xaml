@@ -15,6 +15,7 @@
     </ContentPage.ToolbarItems>
 
     <StackLayout>
+        <!--ZM: IsBusy is controlled by SafeCommand, so Mode=OneWay-->
         <RefreshView IsRefreshing="{Binding IsBusy, Mode=OneWay}"
                      Command="{Binding LoadItemsCommand}">
             <CollectionView x:Name="ItemsCollectionView"

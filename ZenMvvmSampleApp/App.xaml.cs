@@ -1,4 +1,4 @@
-using System;
+using System.Diagnostics;
 using Xamarin.Forms;
 using ZenMvvm.Helpers;
 
@@ -10,28 +10,17 @@ namespace ZenMvvmSampleApp
         {
             InitializeComponent();
 
-            //todo writeup the important setup of SafeExecutionHelpers or break if not set            
+            //ZM: SafeCommand setup -> Log unhandled exceptions,
+            // preventing app crashes
             SafeExecutionHelpers.SetDefaultExceptionHandler(
-                (ex) =>
-                {
-                    //todo put this example somewhere... nice
-                    System.Diagnostics.Debug.WriteLine(ex.Source + ": " + ex.Message);
-                    Exception innerException = ex.InnerException;
-                    int count = 0;
-                    while (innerException != null)
-                    {
-                        count++;
-                        for (int i = 0; i < count; i++)
-                            System.Diagnostics.Debug.Write(" ");
+                (ex) => Debug.WriteLine($"{ex.Source}: {ex.Message}"));
 
-                        System.Diagnostics.Debug.WriteLine("> " + innerException.Source + ": " + innerException.Message);
-                        innerException = innerException.InnerException;
-                    }
-                });
+            //ZM: No need to regester dependencies because the
+            // built-in injection engine will use smart-resolve by
+            // default. This can be turned-off for enterprise apps
 
-
-
-            //Uncomment code below to try external 3rd party containers
+            //ZM: Wan't to use 3rd party dependecy injection instead?
+            //... here are two examples
             //UseLightInject();
             //OR
             //UseAutofac();
@@ -39,12 +28,14 @@ namespace ZenMvvmSampleApp
             MainPage = new AppShell();
         }
 
-//___________ ALTERNATIVE DI/IOC CONTAINER IMPLEMENTATIONS
+        //___________ ALTERNATIVE DI/IOC CONTAINER IMPLEMENTATIONS
 
         //void UseLightInject()
         //{
         //    //LightInject (6.3.4)
         //    //One of the fastest Di engines
+        //    //Use Nuget or add the following to the csproj file
+        //    //<PackageReference Include = "LightInject" Version="6.3.4" />
         //    var container = new LightInject.ServiceContainer();
         //    container.Register<IDataStore<Item>, MockDataStore>();
         //    container.Register<INavigationService, NavigationService>();
@@ -52,14 +43,16 @@ namespace ZenMvvmSampleApp
         //    container.Register<AboutViewModel>();
         //    container.Register<ItemDetailViewModel>();
         //    container.Register<NewItemViewModel>();
-
-        //    ViewModelLocator.ContainerImplementation = new IIocAdapter(container, nameof(LightInject.ServiceContainer.GetInstance));
+        //    ViewModelLocator.ContainerImplementation
+        //        = new IIocAdapter(container, nameof(LightInject.ServiceContainer.GetInstance));
         //}
 
         //void UseAutofac()
         //{
         //    //Autofac (5.2.0)
         //    //One of the most flexible and feature rich Di engines
+        //    //Use Nuget or add the following to the csproj file
+        //    //<PackageReference Include = "Autofac" Version="5.2.0" />
         //    //add using Autofac; to the top of the class
         //    var containerBuilder = new Autofac.ContainerBuilder();
         //    containerBuilder.RegisterType<MockDataStore>().As<IDataStore<Item>>();
@@ -68,8 +61,11 @@ namespace ZenMvvmSampleApp
         //    containerBuilder.RegisterType<AboutViewModel>();
         //    containerBuilder.RegisterType<ItemDetailViewModel>();
         //    containerBuilder.RegisterType<NewItemViewModel>();
-
-        //    ViewModelLocator.ContainerImplementation = new IIocAdapter(containerBuilder.Build(), typeof(ResolutionExtensions), nameof(ResolutionExtensions.Resolve));
+        //    ViewModelLocator.ContainerImplementation
+        //        = new IIocAdapter(
+        //            containerBuilder.Build(),
+        //            typeof(ResolutionExtensions),
+        //            nameof(ResolutionExtensions.Resolve));
         //}
     }
 }

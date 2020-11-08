@@ -15,55 +15,71 @@ namespace ZenMvvmSampleApp.UnitTests
 {
     public class ItemsViewModelTests
     {
-        readonly Mock<IDataStore<Item>> mockDataStore;
-        readonly Item item;
+        readonly Item item
+            = new Item { Id = "1", Text = "Item1", Description = "This is Item1" };
 
         public const int WAITING_TIME_FOR_ASYNC_MS = 1000;
 
-        public ItemsViewModelTests()
-        {
-            item = new Item { Id = "1", Text = "Item1", Description = "This is Item1" };
-
-            mockDataStore = new Mock<IDataStore<Item>>();
-            mockDataStore.Setup(o => o.GetItemsAsync(true))
-                .ReturnsAsync(new List<Item> { item });
-        }
-
+        //ZM: Dependency injection being used with mocks.
+        // At no point is ZenMvvm being tested = true unit testing
         [Fact]
         public void LoadItemsCommand_Constructed_IsNotNull()
         {
+            //Act
             var vm = new ItemsViewModel(
                 new Mock<INavigationService>().Object,
                 new Mock<IDataStore<Item>>().Object,
                 new Mock<ISafeMessagingCenter>().Object);
+
             Assert.NotNull(vm.LoadItemsCommand);
         }
 
         [Fact]
         public void LoadItemsCommand_Executed_ItemsPropertyIsNotEmpty()
         {
+            var mockDataStore = new Mock<IDataStore<Item>>();
+            mockDataStore.Setup(o => o.GetItemsAsync(true))
+                .ReturnsAsync(new List<Item> { item });
+
             var vm = new ItemsViewModel(
                 new Mock<INavigationService>().Object,
                 mockDataStore.Object,
                 new Mock<ISafeMessagingCenter>().Object);
 
+            //Act
             vm.LoadItemsCommand.Execute(null);
+            Thread.Sleep(WAITING_TIME_FOR_ASYNC_MS);
+
             Assert.Single(vm.Items);
         }
 
         [Fact]
-        public void LoadItemsCommand_ExecutedWhenIsBusy_ItemsPropertyIsEmpty()
+        public void LoadItemsCommand_ExecutedWhenIsBusy_DoestRun()
         {
+            var mockDataStore = new Mock<IDataStore<Item>>();
+            mockDataStore.Setup(o => o.GetItemsAsync(true))
+                .ReturnsAsync(new List<Item> { item }).Verifiable();
+
             var vm = new ItemsViewModel(
                 new Mock<INavigationService>().Object,
                 mockDataStore.Object,
-                new Mock<ISafeMessagingCenter>().Object)
-            {
-                IsBusy = true
-            };
+                new Mock<ISafeMessagingCenter>().Object);
 
+            //LoadItems calls mockDataStore
             vm.LoadItemsCommand.Execute(null);
-            Assert.Empty(vm.Items);
+            Thread.Sleep(WAITING_TIME_FOR_ASYNC_MS);
+            mockDataStore.Verify();
+            Assert.Single(mockDataStore.Invocations);
+
+            //Setup
+            vm.IsBusy = true;
+
+            //Act
+            vm.LoadItemsCommand.Execute(null);
+            Thread.Sleep(WAITING_TIME_FOR_ASYNC_MS);
+            // mockDataStore not called a second time
+            mockDataStore.VerifyNoOtherCalls();
+            Assert.Single(mockDataStore.Invocations);
         }
 
         [Fact]
@@ -77,6 +93,7 @@ namespace ZenMvvmSampleApp.UnitTests
             Assert.NotNull(vm.AddItemCommand);
         }
 
+        //ZM: Test that navigation was called
         [Fact]
         public void AddItemCommand_Executed_NavigatesToNewItemViewModel()
         {
@@ -90,7 +107,8 @@ namespace ZenMvvmSampleApp.UnitTests
                 new Mock<ISafeMessagingCenter>().Object);
 
             vm.AddItemCommand.Execute(null);
-            Mock.Verify(new Mock[] { mockNavigation });
+            Thread.Sleep(WAITING_TIME_FOR_ASYNC_MS);
+            mockNavigation.Verify();
         }
 
         [Fact]
@@ -135,6 +153,10 @@ namespace ZenMvvmSampleApp.UnitTests
         [Fact]
         public void ItemsProperty_AfterOnViewAppearing_IsNotEmpty()
         {
+            var mockDataStore = new Mock<IDataStore<Item>>();
+            mockDataStore.Setup(o => o.GetItemsAsync(true))
+                .ReturnsAsync(new List<Item> { item });
+
             var vm = new ItemsViewModel(
                 new Mock<INavigationService>().Object,
                 mockDataStore.Object,
@@ -145,10 +167,15 @@ namespace ZenMvvmSampleApp.UnitTests
             Assert.NotEmpty(vm.Items);
         }
 
+        //ZM: Test that LoadItemsCommand results in a CollectionChanged event on Items
         [Fact]
         public void ItemsProperty_LoadItemsCommandExecuted_RaisesCollectionChanged()
         {
             bool invoked = false;
+
+            var mockDataStore = new Mock<IDataStore<Item>>();
+            mockDataStore.Setup(o => o.GetItemsAsync(true))
+                .ReturnsAsync(new List<Item> { item });
 
             var vm = new ItemsViewModel(
                 new Mock<INavigationService>().Object,
@@ -167,6 +194,7 @@ namespace ZenMvvmSampleApp.UnitTests
             Assert.True(invoked);
         }
 
+        //ZM: Test messaging center subscription
         [Fact]
         public void ItemsViewModel_Constructed_MessagingCenterSubscribeToAddItem()
         {
